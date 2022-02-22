@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Deploying your application to Azure App Service
+## Prerequisites
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Code Editor (Visual Studio Code)
+- Microsoft Azure Subscription
 
-## Available Scripts
 
-In the project directory, you can run:
+### `Step 1 : Prepare the project to be deployed on Visual Studio Code.`
 
-### `npm start`
+Runs the app in the development mode to ensure it contains no errors.
 
-Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
+### `Step 2 : Push your project to a repository on GitHub.`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Why this step? 
+We shall set up a GitHub workflow that will automatically re-deploy your application whenever code is pushed to the master branch. With this configured, you do not have to keep re-deploying your application manually.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Useful Azure Extensions that allow you to work with GitHub in Visual Studeio Code. 
+- GitLens - Git supercharged
+- Source Control Buttons
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `Step 3 : Navigate to the Azure portal to create your resource`
+Open [Azure portal](https://portal.azure.com) and sign in with an email with an Azure Subscription.
 
-### `npm run eject`
+![Active Azure Subscription](ReadMeAssets/ActiveSubscription.jpg) 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you do not have an Azure Subscription and you are an active university/college student, you can [activate a Free Azure Account](https://azure.microsoft.com/en-us/free/students/) using your school email address, no credit card information required.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To host an application on Azure, you need to create an App Service as shown below
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Create a New App Service](ReadMeAssets/NewAppService.jpg)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+During the Web App Configuration, you need to provide the following specifications:
+> ![App Service Specifications](ReadMeAssets/AppSpec.jpg)
+- Select the Subscription to host your application
+- Provide a resource group (logical container) to which your application will be saved
+- Provide a Web App Name. This needs to be a globally unique name as it appears on the app's url after deployment [Web-App-Name].azurewebsites.net
 
-## Learn More
+Please note you can configure a custom domain for your application on Azure. Kindly see [custom dns documentation](https://docs.microsoft.com/en-us/azure/app-service/manage-custom-dns-buy-domain)
+- For this guide, we have our codebase in GitHub, so select 'code' as your publish item.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Please note, based on where your project resides, you can select either 'code', if it is on GitHub, or 'docker container' or a 'static web app'
+- Select your project's runtime stack (ie. Node 14 TLS)
+- Select preferred Operating System to host your resource
+- Select an Azure region to which you would like to host your resource.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Please note, the region's availability depends on the App Service Plan you intend to use (ie. A free B1 plan is not available for a Linix Based App Service in West Europe but a Window's based App Service in the same region can run on a free B1 plan) 
 
-### Code Splitting
+Learn more about [Azure Regions and availability zones here](https://docs.microsoft.com/en-us/azure/availability-zones/az-overview)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+> ![Configure GitHub Actions](ReadMeAssets/GitHubActions.jpg)
+- Configure a GitHub workflow using GitHub Actions to automatically re-deploy your application once code is pushed to the master branch.
 
-### Analyzing the Bundle Size
+Learn more on [GitHub Actions](https://github.com/features/actions) here
+- If you prefer, you can enable Application Insights Service, an Application Performance Management (APM) Service that enables you to monitor your application (ie. traffic)
+- Once done, click 'Review and Create'
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Congratulations!! - You have just created your first Azure Web App!
 
-### Making a Progressive Web App
+![Created Azure Web App](ReadMeAssets/AppService.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### `Step 4 : Navigate to [Web-App-Name].azurewebsites.net to access your live application`
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+You can easily click browse on the Web App as shown above and you will be redirected to your live application.
